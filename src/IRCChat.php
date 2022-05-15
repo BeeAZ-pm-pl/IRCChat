@@ -8,6 +8,7 @@ use pocketmine\utils\Config;
 use pocketmine\player\Player;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
+use pocketmine\event\player\PlayerJoinEvent;
 use IRCChat\IRCChatClient;
 
 class IRCChat extends PluginBase implements Listener {
@@ -46,7 +47,6 @@ class IRCChat extends PluginBase implements Listener {
 		$this->getServer()->getLogger()->info("IRCChat connected to /$addr:$port");
 		$this->api->schedule(2, array($this, "check"), array(), true);
 		$this->api->addHandler("server.chat", array($this, "sendMessage"));
-		$this->api->event("player.join", array($this, "eventHandler"));
 	}
 
 	public function commandHandler($cmd, $params, $issuer, $alias) {
@@ -80,12 +80,9 @@ class IRCChat extends PluginBase implements Listener {
 		return $output;
 	}
 
-	public function eventHandler($data, $event) {
-		switch ($event) {
-			case "player.join":
-				socket_write($this->socket, "PRIVMSG " . $this->config->get("channel") . " :" . $data->username . " joined the game\r\n");
-				break;
-		}
+	public function onJoin(PlayerJoinEvent $event): void {
+		$player = $event->getPlayer();
+		socket_write($this->socket, "PRIVMSG " . $this->config->get("channel") . " :" . $player->getName() . " joined the game\r\n");
 	}
 
 	public function sendMessage($data, $event) {
