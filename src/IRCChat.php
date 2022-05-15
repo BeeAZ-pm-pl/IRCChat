@@ -43,7 +43,6 @@ class IRCChat extends PluginBase implements Listener {
 		socket_getpeername($this->socket, $addr, $port);
 		socket_set_nonblock($this->socket);
 		$this->thread = new IRCChatClient($this->socket, $this->config->get("nickname"), $this->config->get("password"), $this->config->get("channel"));
-		$this->api->console->register("irc", "<message ...>", array($this, "commandHandler"));
 		$this->getServer()->getLogger()->info("IRCChat connected to /$addr:$port");
 		$this->api->schedule(2, array($this, "check"), array(), true);
 		$this->api->addHandler("server.chat", array($this, "sendMessage"));

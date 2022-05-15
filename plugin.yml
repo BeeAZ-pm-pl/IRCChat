@@ -6,4 +6,14 @@ author: shoghicp
 main: IRCChat\IRCChat
 src-namespace-prefix: IRCChat
 api: 4.0.0
+
+commands:
+  irc:
+    description: "irc command description"
+    sage: "/irc <message ...>"
+    permission: ircchat.command
+permissions:
+  ircchat.command:
+    description: "Allows the use of /irc"
+    default: true
 ...
