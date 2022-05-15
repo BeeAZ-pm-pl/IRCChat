@@ -112,7 +112,7 @@ class IRCChat extends PluginBase implements Listener {
 		if ($this->thread->isWaiting()) {
 			switch ($this->thread->type) {
 				case 0:
-					console($this->thread->msg);
+					$this->getServer()->getLogger()->info($this->thread->msg);
 					break;
 				case 1:
 					$this->api->chat->send(false, $this->thread->msg, false, array("IRCChat", "ircchat"));
