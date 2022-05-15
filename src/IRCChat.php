@@ -105,11 +105,7 @@ class IRCChat extends PluginBase implements Listener {
 		}
 	}
 
-	public function __destruct() {
-		$this->stop();
-	}
-
-	public function stop() {
+	protected function onDisable(): void {
 		$this->thread->stop = true;
 		$this->thread->notify();
 		$this->thread->join();
