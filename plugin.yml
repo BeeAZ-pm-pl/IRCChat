@@ -1,0 +1,9 @@
+---
+name: IRCChat
+description: Connects to an IRC channel to act as a bridge for the server chat.
+version: 1.0.0
+author: shoghicp
+main: IRCChat\IRCChat
+src-namespace-prefix: IRCChat
+api: 4.0.0
+...
